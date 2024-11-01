@@ -14,8 +14,8 @@ import (
 type OCRResult struct {
 	Text           string    `json:"text"`
 	ProcessingTime float64   `json:"processing_time"`
-	Timestamp     time.Time `json:"timestamp"`
-	Error         string    `json:"error,omitempty"`
+	Timestamp      time.Time `json:"timestamp"`
+	Error          string    `json:"error,omitempty"`
 }
 
 // OCRClient provides thread-safe OCR operations
@@ -41,7 +41,7 @@ func NewOCRClient() (*OCRClient, error) {
 // ProcessImage performs OCR on the given image file
 func (c *OCRClient) ProcessImage(imagePath string) (*OCRResult, error) {
 	start := time.Now()
-	
+
 	// Lock to ensure thread safety
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -67,14 +67,14 @@ func (c *OCRClient) ProcessImage(imagePath string) (*OCRResult, error) {
 	return &OCRResult{
 		Text:           text,
 		ProcessingTime: processingTime,
-		Timestamp:     time.Now(),
+		Timestamp:      time.Now(),
 	}, nil
 }
 
 // ProcessImageBytes performs OCR on image data in bytes
 func (c *OCRClient) ProcessImageBytes(imageData []byte) (*OCRResult, error) {
 	start := time.Now()
-	
+
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
@@ -92,7 +92,7 @@ func (c *OCRClient) ProcessImageBytes(imageData []byte) (*OCRResult, error) {
 	return &OCRResult{
 		Text:           text,
 		ProcessingTime: processingTime,
-		Timestamp:     time.Now(),
+		Timestamp:      time.Now(),
 	}, nil
 }
 
